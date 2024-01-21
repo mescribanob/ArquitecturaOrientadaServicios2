@@ -1,0 +1,118 @@
+###
+# CGET 200
+GET http://127.0.0.1:80/api/v1/recambios
+Accept: application/json
+
+###
+# CGET ERROR 404 (No hay recambios)
+GET http://127.0.0.1:80/api/v1/recambios
+Prefer: code=404
+Accept: application/json
+
+###
+# COPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/recambios
+Accept: application/json
+
+###
+# POST 201
+POST http://127.0.0.1:80/api/v1/recambios
+Prefer: dynamic=true
+Accept: application/json
+
+{
+  "Numero_Serie": "Z0000002-B"
+}
+
+###
+# POST 400
+POST http://127.0.0.1:80/api/v1/recambios
+Prefer: code=400
+Accept: application/json
+
+###
+# POST 422
+POST http://127.0.0.1:80/api/v1/recambios
+Prefer: code=422
+Accept: application/json
+
+###
+# COPTIONS 204
+OPTIONS http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+Accept: application/json
+
+###
+# GET 200
+GET http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+Accept: application/json
+
+###
+# GET 404
+GET http://127.0.0.1:80/api/v1/recambios/T0000101-C
+Prefer: code=404
+Accept: application/json
+
+###
+# DELETE 204
+DELETE http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+Accept: application/json
+
+###
+# DELETE 404
+DELETE http://127.0.0.1:80/api/v1/recambios/Y0000005-C
+Prefer: code=404
+Accept: application/json
+
+###
+# PUT 209 (dinámico)
+PUT http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+If-Match: abcde12345
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "Nombre_Recambio": "Freno de mano"
+}
+
+###
+# PUT 404 (dinámico) - Not Found
+PUT http://127.0.0.1:80/api/v1/recambios/Z0000003-C
+If-Match: a1b2c3d4e5f6
+Prefer: code=404
+Content-Type: application/json
+
+{
+  "Nombre_Recambio": "Freno de mano"
+}
+
+###
+# PUT 409 (dinámico)
+PUT http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+If-Match: abcde12345
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "Nombre_Recambio": "Freno de mano"
+}
+
+###
+# PUT 412 (dinámico)
+PUT http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+If-Match: abcde54321
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "Nombre_Recambio": "Freno de mano"
+}
+
+###
+# PUT 422 (dinámico) - Falta cabecera If-Match
+PUT http://127.0.0.1:80/api/v1/recambios/Z0000001-A
+Prefer: dynamic=true
+Content-Type: application/json
+
+{
+  "Nombre_Recambio": "Freno de mano"
+}
